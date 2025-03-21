@@ -60,13 +60,18 @@ func GetTrainInfo(numworkers int) {
 	close(results)
 
 	for info := range results {
-		if info.Status == "" {
+		if info.Status == "" || info.Status == "COMPLETED" {
 			continue
 		}
 		GeneralTrainInfo = append(GeneralTrainInfo, info)
 	}
 
-	fmt.Println(len(GeneralTrainInfo))
+	updatedInfo := LiveStatus{
+		Trains:     GeneralTrainInfo,
+		Updated_at: time.Now().Unix(),
+	}
+
+	WriteLiveStatusToFile(updatedInfo, "LiveInfo.json")
 
 }
 

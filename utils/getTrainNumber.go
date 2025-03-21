@@ -41,5 +41,5 @@ func GetTrainNumbers() {
 		}
 
 	}
-	writeToFile(trainNumbers, "trainNumbers.json")
+	writeTrainNumberToFile(trainNumbers, "trainNumbers.json")
 }

@@ -514,5 +514,6 @@ type TrainInfo struct {
 }
 
 type LiveStatus struct {
-	Trains []TrainInfo `json:"trains"`
+	Trains     []TrainInfo `json:"trains"`
+	Updated_at int64       `json:"updated_at"`
 }

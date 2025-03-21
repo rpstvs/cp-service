@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -17,7 +16,7 @@ func main() {
 
 		for {
 			time.Sleep(5 * time.Second)
-			foo("estou a fazer calls a cada 30 s")
+
 		}
 
 	}()
@@ -26,8 +25,5 @@ func main() {
 
 	log.Println("Serving on port: ", server.Addr)
 	log.Fatal(server.ListenAndServe())
-}
 
-func foo(message string) {
-	fmt.Println(message)
 }
