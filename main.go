@@ -5,18 +5,17 @@ import (
 	"time"
 
 	"github.com/rpstvs/cp-realtime/server"
+	"github.com/rpstvs/cp-realtime/utils"
 )
 
 func main() {
 	//utils.GetTrainNumbers()
 
-	//utils.GetTrainInfo(30)
-
 	go func() {
 
 		for {
-			time.Sleep(5 * time.Second)
-
+			time.Sleep(30 * time.Second)
+			utils.GetTrainInfo(30)
 		}
 
 	}()

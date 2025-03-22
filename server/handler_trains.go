@@ -24,6 +24,6 @@ func RetrieveTrainsInfo(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-
+	fmt.Println("deu joia")
 	respondWithJson(w, http.StatusOK, LiveInfo)
 }
