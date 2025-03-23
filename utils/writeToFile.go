@@ -34,7 +34,7 @@ func writeTrainNumberToFile(trainNumber map[int]struct{}, filename string) {
 
 func WriteLiveStatusToFile(LiveStatus LiveStatus, filename string) {
 
-	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, 0755)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0755)
 
 	if err != nil {
 		fmt.Println(err)
