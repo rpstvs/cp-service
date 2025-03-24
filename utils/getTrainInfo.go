@@ -32,7 +32,6 @@ func GetTrainInfo(numworkers int) {
 		return
 	}
 
-	fmt.Println(trainNumbers, len(trainNumbers))
 	results := make(chan TrainInfo, len(trainNumbers))
 	var wg sync.WaitGroup
 	jobs := make(chan int, len(trainNumbers))
@@ -53,7 +52,6 @@ func GetTrainInfo(numworkers int) {
 		jobs <- trainID
 	}
 
-	fmt.Println("closing jobs channel")
 	close(jobs)
 
 	wg.Wait()
@@ -70,7 +68,7 @@ func GetTrainInfo(numworkers int) {
 		Trains:     GeneralTrainInfo,
 		Updated_at: time.Now().Unix(),
 	}
-
+	log.Printf("Finished fetching Train info, there are %d trains in transit \n", len(GeneralTrainInfo))
 	WriteLiveStatusToFile(updatedInfo, "LiveInfo.json")
 
 }
@@ -82,6 +80,7 @@ func RequestWorker(trainId int, results chan<- TrainInfo, wg *sync.WaitGroup) {
 	resp, err := http.Get(reqURL)
 	if err != nil {
 		log.Println(err)
+		return
 	}
 
 	defer resp.Body.Close()
@@ -92,9 +91,10 @@ func RequestWorker(trainId int, results chan<- TrainInfo, wg *sync.WaitGroup) {
 
 	err = decoder.Decode(&info)
 	if err != nil {
-		log.Println(err)
+		log.Printf("Nothing to decode on trainid %d \n", trainId)
+		return
 	}
-	log.Printf("Finished fetching info for trainId %d \n", trainId)
+
 	results <- info
 
 }

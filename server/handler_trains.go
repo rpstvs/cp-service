@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -14,7 +13,8 @@ func RetrieveTrainsInfo(w http.ResponseWriter, r *http.Request) {
 
 	jsonFile, err := os.Open("LiveInfo.json")
 	if err != nil {
-		fmt.Println(err)
+		respondWithError(w, http.StatusInternalServerError, "Couldnt get Live Info", err)
+		return
 	}
 
 	decoder := json.NewDecoder(jsonFile)
@@ -22,8 +22,9 @@ func RetrieveTrainsInfo(w http.ResponseWriter, r *http.Request) {
 	err = decoder.Decode(&LiveInfo)
 
 	if err != nil {
-		fmt.Println(err)
+		respondWithError(w, http.StatusInternalServerError, "Couldnt get Live Info", err)
+		return
 	}
-	fmt.Println("deu joia")
+
 	respondWithJson(w, http.StatusOK, LiveInfo)
 }

@@ -14,8 +14,9 @@ func main() {
 	go func() {
 
 		for {
-			time.Sleep(30 * time.Second)
 			utils.GetTrainInfo(30)
+			time.Sleep(30 * time.Second)
+
 		}
 
 	}()
